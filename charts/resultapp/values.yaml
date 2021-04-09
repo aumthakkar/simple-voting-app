@@ -1,0 +1,20 @@
+# Default values for resultapp.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+
+
+deployment:
+  name: result-app-deploy
+  replicaCount: 1
+  image: dockersamples/examplevotingapp_result 
+  
+service:
+  name: result-svc
+  type: NodePort
+  port: 80
+  targetPort: 80
+  nodePort: 30002
+
+entireAppLabel:
+  app: demo-voting-app

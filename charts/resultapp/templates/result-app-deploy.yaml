@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+  labels:
+    app: demo-voting-app
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "result-app-selectorLabels" .| nindent 6 }}
+  template:
+    metadata:
+      name: result-app-pod
+      labels:
+        {{- include "result-app-selectorLabels" .| nindent 8 }}
+
+    spec:
+      containers:
+        - name: result-app
+          image: {{ .Values.deployment.image }}
+          ports:
+            - containerPort: 80

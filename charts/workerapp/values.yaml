@@ -1,0 +1,12 @@
+# Default values for workerapp.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deployment:
+  name: worker-app-deploy
+  replicaCount: 1
+  image: dockersamples/examplevotingapp_worker
+   
+entireAppLabel:
+  app: demo-voting-app
+

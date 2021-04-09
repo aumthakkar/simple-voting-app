@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+  labels:
+    app: {{ .Values.entireAppLabel.app }}
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "redSelectorLabels" .| nindent 6 }}
+  template:
+    metadata:
+      name: redis-pod
+      labels:
+        {{- include "redSelectorLabels" .| nindent 8 }}
+
+    spec:
+      containers:
+        - name: redis
+          image: redis
+          ports:
+            - containerPort: 6379

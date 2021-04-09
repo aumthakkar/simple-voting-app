@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+  labels:
+    app: {{ .Values.entireAppLabel.app }}
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "postSelectorLabels" .| nindent 6 }}
+  template:
+    metadata:
+      name: postgres-pod
+      labels:
+        {{- include "postSelectorLabels" .| nindent 8 }}
+
+    spec:
+      containers:
+        - name: postgres
+          image: {{ .Values.deployment.image }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
